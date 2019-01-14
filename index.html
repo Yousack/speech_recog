@@ -18,15 +18,11 @@
 
         recognition.start();
 
-        recognition.onaudiostart = function () {
-            console.log("start")
-        }
-
         recognition.onresult = function(ev) {
-            var transcript = ev.results[0][0].transcript;
-            document.getElementById("current").textContent = transcript
+            var current = document.getElementById("current");
+            current.textContent = ev.results[0][0].transcript;
             if (ev.results[0].isFinal) {
-                console.log("final")
+                current.textContent = "";
                 var result_list = document.getElementById("result_list");
                 var p = document.createElement("p");
                 p.textContent = transcript;
