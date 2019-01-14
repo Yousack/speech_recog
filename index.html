@@ -15,7 +15,8 @@
         recognition.lang = 'ja-JP';
         recognition.interimResults = true;
 
-        recognition.onspeechstart = function() {
+        recognition.onsoundstart = function() {
+            console.log("start");
             recognition.start();
             recognition.onresult = function(ev) {
                 console.log(ev.results);
