@@ -4,10 +4,10 @@
         <title>speech recognition</title>
     </head>
     <body>
-        <div id="current">
-            <span></span>
+        <div>
+            <p id="current"></p>
         </div>
-        <div id="return_list">
+        <div id="result_list">
         </div>
     </body> 
     <script>
@@ -23,9 +23,12 @@
         }
 
         recognition.onresult = function(ev) {
-            console.log(ev.results[0][0].transcript);
+            var transcript = ev.results[0][0].transcript;
+            document.getElementById("current").textContent = transcript
             if (ev.results[0].isFinal) {
                 console.log("final")
+                var result_list = document.getElementById("result_list");
+                result_list.insertBefore(document.createElement("p", textContent = transcript), result_list.firstChild);
             }
         }
 
