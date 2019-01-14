@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja-JP">
     <head>
-
+        <title>speech recognition</title>
     </head>
     <body>
         <div id="current">
@@ -18,7 +18,13 @@
 
         recognition.start();
         recognition.onresult = function(ev) {
-            console.log(ev.results[0]);
+            console.log(ev.results[0][0].transcript);
+            if (ev.results[0].isFinal) {
+                console.log("final")
+            }
+        }
+        recognition.onend = function() {
+            recognition.start();
         }
     </script>
 </html>
