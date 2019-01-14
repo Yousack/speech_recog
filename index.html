@@ -1,0 +1,28 @@
+<html lang="ja-JP">
+    <head>
+
+    </head>
+    <body>
+        <div id="current">
+            <span></span>
+        </div>
+        <div id="return_list">
+        </div>
+    </body> 
+    <script>
+        var recognition = new SpeechRecognition();
+        recognition.lang = 'ja-JP';
+        recognition.interimResults = true;
+
+        recognition.onspeechstart = function() {
+            recognition.start();
+            recognition.onresult = function(ev) {
+                console.log(ev.results);
+            }
+        }
+
+        recognition.onspeechend = function() {
+            recognition.stop();
+        }
+    </script>
+</html>
