@@ -28,7 +28,9 @@
             if (ev.results[0].isFinal) {
                 console.log("final")
                 var result_list = document.getElementById("result_list");
-                result_list.insertBefore(document.createElement("p", textContent = transcript), result_list.firstChild);
+                var p = document.createElement("p");
+                p.textContent = transcript;
+                result_list.insertBefore(p, result_list.firstChild);
             }
         }
 
