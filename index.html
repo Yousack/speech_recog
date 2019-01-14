@@ -22,11 +22,10 @@
             console.log(ev.results[0][0].transcript);
             if (ev.results[0].isFinal) {
                 console.log("final")
+                console.log("restart");
+                recognition.stop();
+                recognition.start();
             }
-        }
-        recognition.onend = function() {
-            console.log("restart");
-            recognition.start();
         }
     </script>
 </html>
