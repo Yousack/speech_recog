@@ -13,7 +13,7 @@
     <script>
         var recognition = new webkitSpeechRecognition();
         recognition.lang = 'ja-JP';
-        recognition.continuous = true;
+        // recognition.continuous = true;
         recognition.interimResults = true;
 
         recognition.start();
@@ -30,6 +30,7 @@
         }
 
         recognition.onend = function() {
+            console.log("restart");
             recognition.start();
         }
     </script>
