@@ -13,18 +13,12 @@
     <script>
         var recognition = new webkitSpeechRecognition();
         recognition.lang = 'ja-JP';
+        recognition.continuous = true;
         recognition.interimResults = true;
 
-        recognition.onsoundstart = function() {
-            console.log("start");
-            recognition.start();
-            recognition.onresult = function(ev) {
-                console.log(ev.results);
-            }
-        }
-
-        recognition.onspeechend = function() {
-            recognition.stop();
+        recognition.start();
+        recognition.onresult = function(ev) {
+            console.log(ev.results);
         }
     </script>
 </html>
