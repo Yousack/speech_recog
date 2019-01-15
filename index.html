@@ -14,6 +14,9 @@
         <button onclick="start('en-US')">English (US)</button>
         <button onclick="start('en-UK')">English (UK)</button>
         <div>
+            <p id="confidence"></p>
+        </div>
+        <div>
             <p id="current"></p>
         </div>
         <div id="result_list">
@@ -30,13 +33,10 @@
              start(recognition.lang);
          }
 
-         recognition.onend = function() {
-             start(recognition.lang);
-         }
-
          recognition.onresult = function(ev) {
              var current = document.getElementById("current");
              current.textContent = ev.results[0][0].transcript;
+             document.getElementById("confidence").textContent = ev.results[0][0].confidence
              if (ev.results[0].isFinal) {
                  var p = document.createElement("p");
                  p.textContent = current.textContent;
