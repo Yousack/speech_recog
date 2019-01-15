@@ -13,6 +13,7 @@
         <button onclick="start('ja-JP')">Japanese</button>
         <button onclick="start('en-US')">English (US)</button>
         <button onclick="start('en-UK')">English (UK)</button>
+        <button onclick="start('ko-KR')">Korean</button>
         <div>
             <p id="confidence"></p>
         </div>
@@ -36,7 +37,6 @@
          recognition.onresult = function(ev) {
              var current = document.getElementById("current");
              current.textContent = ev.results[0][0].transcript;
-             document.getElementById("confidence").textContent = ev.results[0][0].confidence
              if (ev.results[0].isFinal) {
                  var p = document.createElement("p");
                  p.textContent = current.textContent;
