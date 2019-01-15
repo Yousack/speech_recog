@@ -30,6 +30,10 @@
              start(recognition.lang);
          }
 
+         recognition.onend = function() {
+             start(recognition.lang);
+         }
+
          recognition.onresult = function(ev) {
              var current = document.getElementById("current");
              current.textContent = ev.results[0][0].transcript;
