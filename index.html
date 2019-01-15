@@ -12,6 +12,7 @@
     <body>
         <button onclick="start('ja-JP')">Japanese</button>
         <button onclick="start('en-US')">English (US)</button>
+        <button onclick="start('en-UK')">English (UK)</button>
         <div>
             <p id="current"></p>
         </div>
@@ -21,6 +22,7 @@
     <script>
      function start(lang) {
          var recognition = new webkitSpeechRecognition();
+         recognition.continuous = true;
          recognition.interimResults = true;
          recognition.lang = lang;
          recognition.start();
@@ -35,10 +37,6 @@
                  var result_list = document.getElementById("result_list");
                  result_list.insertBefore(p, result_list.firstChild);
              }
-         }
-
-         recognition.onend = function() {
-             recognition.start();
          }
      }
     </script>
