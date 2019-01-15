@@ -15,7 +15,7 @@
         <button onclick="start('en-UK')">English (UK)</button>
         <button onclick="start('ko-KR')">Korean</button>
         <div>
-            <p id="confidence"></p>
+            <p id="state"></p>
         </div>
         <div>
             <p id="current"></p>
@@ -31,17 +31,22 @@
          recognition.lang = lang;
 
          recognition.onsoundend = function() {
+             document.getElementById("state").textContent = "soundend";
              start(recognition.lang);
          }
 
          recognition.onerror = function() {
+             document.getElementById("state").textContent = "error";
              start(recognition.lang);
          }
 
          recognition.onresult = function(ev) {
              var current = document.getElementById("current");
              current.textContent = ev.results[0][0].transcript;
+             var state = document.getElementById("state")
+             state.textContent = "intermediate";
              if (ev.results[0].isFinal) {
+                 state.textContent = "final";
                  var p = document.createElement("p");
                  p.textContent = current.textContent;
                  current.textContent = "";
@@ -50,7 +55,8 @@
                  start(recognition.lang);
              }
          }
-
+         
+         document.getElementById("state").textContent = "start";
          recognition.start();
      }
     </script>
