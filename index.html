@@ -40,12 +40,8 @@
              }
          }
 
-         recognition.onspeechend = function() {
-             console.log("onspeechend");
-         }
-
-         recognition.onaudioend = function() {
-             console.log("onaudioend");
+         recognition.onend = function() {
+             start(recongnition.lang);
          }
      }
     </script>
