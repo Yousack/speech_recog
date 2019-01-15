@@ -26,8 +26,8 @@
          recognition.interimResults = true;
          recognition.lang = lang;
 
-         recognition.onsoundstart = function() {
-             recognition.start();
+         recognition.onsoundend = function() {
+             start(recognition.lang);
          }
 
          recognition.onresult = function(ev) {
@@ -42,6 +42,8 @@
                  start(recognition.lang);
              }
          }
+
+         recognitioin.start();
      }
     </script>
 </html>
