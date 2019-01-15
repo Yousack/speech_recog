@@ -25,7 +25,10 @@
          recognition.continuous = true;
          recognition.interimResults = true;
          recognition.lang = lang;
-         recognition.start();
+
+         recognition.onsoundstart = function() {
+             recognition.start();
+         }
 
          recognition.onresult = function(ev) {
              var current = document.getElementById("current");
@@ -38,10 +41,6 @@
                  result_list.insertBefore(p, result_list.firstChild);
                  start(recognition.lang);
              }
-         }
-
-         recognition.onspeechend = function() {
-             start(recognition.lang);
          }
      }
     </script>
