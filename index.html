@@ -31,13 +31,20 @@
              var current = document.getElementById("current");
              current.textContent = ev.results[0][0].transcript;
              if (ev.results[0].isFinal) {
-                 console.log(ev.results[0]);
                  var p = document.createElement("p");
                  p.textContent = current.textContent;
                  current.textContent = "";
                  var result_list = document.getElementById("result_list");
                  result_list.insertBefore(p, result_list.firstChild);
              }
+         }
+
+         recognition.onspeechend = function() {
+             console.log("onspeechend");
+         }
+
+         recognition.onaudioend = function() {
+             console.log("onaudioend");
          }
      }
     </script>
