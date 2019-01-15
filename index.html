@@ -4,6 +4,8 @@
         <title>speech recognition</title>
     </head>
     <body>
+        <button label="Japanese", onclick="start('ja-JP')"/>
+        <button label="English (US)", onclick="start('en-US')"/>
         <div>
             <p id="current"></p>
         </div>
@@ -11,27 +13,27 @@
         </div>
     </body> 
     <script>
-        var recognition = new webkitSpeechRecognition();
-        recognition.lang = 'ja-JP';
-        // recognition.continuous = true;
-        recognition.interimResults = true;
+     function start(lang) {
+         var recognition = new webkitSpeechRecognition();
+         recognition.interimResults = true;
+         recognition.lang = lang;
+         recognition.start();
 
-        recognition.start();
+         recognition.onresult = function(ev) {
+             var current = document.getElementById("current");
+             current.textContent = ev.results[0][0].transcript;
+             if (ev.results[0].isFinal) {
+                 var p = document.createElement("p");
+                 p.textContent = current.textContent;
+                 current.textContent = "";
+                 var result_list = document.getElementById("result_list");
+                 result_list.insertBefore(p, result_list.firstChild);
+             }
+         }
 
-        recognition.onresult = function(ev) {
-            var current = document.getElementById("current");
-            current.textContent = ev.results[0][0].transcript;
-            if (ev.results[0].isFinal) {
-                var p = document.createElement("p");
-                p.textContent = current.textContent;
-                current.textContent = "";
-                var result_list = document.getElementById("result_list");
-                result_list.insertBefore(p, result_list.firstChild);
-            }
-        }
-
-        recognition.onend = function() {
-            recognition.start();
-        }
+         recognition.onend = function() {
+             recognition.start();
+         }
+     }
     </script>
 </html>
