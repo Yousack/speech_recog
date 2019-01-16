@@ -8,6 +8,12 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <style>
+         p {
+             text-align: justify;
+             hyphens: auto;
+         }
+        </style>
     </head>
     <body>
         <button onclick="start('en-US')">English (US)</button>
@@ -49,13 +55,13 @@
 
          recognition.onresult = function(ev) {
              var current = document.getElementById("current");
-             current.textContent = ev.results[0][0].transcript + ev.resultIndex;
+             current.textContent = ev.results[0][0].transcript;
              var state = document.getElementById("state")
              state.textContent = "intermediate";
              if (ev.results[0].isFinal) {
                  state.textContent = "final";
                  var p = document.createElement("p");
-                 p.textContent = current.textContent;
+                 p.textContent = current.textContent + ev.resultIndex;
                  current.textContent = "";
                  var result_list = document.getElementById("result_list");
                  result_list.insertBefore(p, result_list.firstChild);
