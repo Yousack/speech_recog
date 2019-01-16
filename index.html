@@ -55,7 +55,7 @@
 
          recognition.onresult = function(ev) {
              var current = document.getElementById("current");
-             var state = document.getElementById("state")
+             var state = document.getElementById("state");
              var results = ev.results;
              for (var i = results.resultIndex; i < results.length; i++) {
                  if (ev.results[i].isFinal) {
