@@ -55,18 +55,18 @@
 
          recognition.onresult = function(ev) {
              var current = document.getElementById("current");
+             current.textContent = "";
              var state = document.getElementById("state");
              var results = ev.results;
              for (var i = ev.resultIndex; i < results.length; i++) {
                  if (results[i].isFinal) {
                      var p = document.createElement("p");
                      p.textContent = results[i][0].transcript;
-                     current.textContent = "";
                      var result_list = document.getElementById("result_list");
                      result_list.insertBefore(p, result_list.firstChild);
                      start(recognition.lang);
                  } else {
-                     current.textContent = results[i][0].transcript;
+                     current.textContent += results[i][0].transcript;
                      state.textContent = "intermediate";
                  }
              }
