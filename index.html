@@ -8,6 +8,7 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <style>
          p {
              hyphens: auto;
          }
@@ -57,9 +58,9 @@
              var current = document.getElementById("current");
              current.textContent = "";
              if (lang = 'ar-AE') {
-                 current.style.textAlign = right;
+                 current.style.textAlign = "right";
              } else {
-                 current.style.textAlign = left;
+                 current.style.textAlign = "left";
              }
              var state = document.getElementById("state");
              var results = ev.results;
@@ -67,9 +68,9 @@
                  if (results[i].isFinal) {
                      var p = document.createElement("p");
                      if (lang = 'ar-AE') {
-                         p.style.textAlign = right;
+                         p.style.textAlign = "right";
                      } else {
-                         p.style.textAlign = left;
+                         p.style.textAlign = "left";
                      }
                      p.textContent = results[i][0].transcript;
                      var result_list = document.getElementById("result_list");
