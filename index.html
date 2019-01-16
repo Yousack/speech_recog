@@ -8,9 +8,7 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <style>
          p {
-             text-align: justify;
              hyphens: auto;
          }
         </style>
@@ -59,9 +57,9 @@
              var current = document.getElementById("current");
              current.textContent = "";
              if (lang = 'ar-AE') {
-                 current.style.direction = rtl;
+                 current.style.textAlign = right;
              } else {
-                 current.style.direction = ltr;
+                 current.style.textAlign = left;
              }
              var state = document.getElementById("state");
              var results = ev.results;
@@ -69,9 +67,9 @@
                  if (results[i].isFinal) {
                      var p = document.createElement("p");
                      if (lang = 'ar-AE') {
-                         p.style.direction = rtl;
+                         p.style.textAlign = right;
                      } else {
-                         p.style.direction = ltr;
+                         p.style.textAlign = left;
                      }
                      p.textContent = results[i][0].transcript;
                      var result_list = document.getElementById("result_list");
