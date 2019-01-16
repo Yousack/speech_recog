@@ -58,7 +58,7 @@
          recognition.onresult = function(ev) {
              var current = document.getElementById("current");
              current.textContent = "";
-             if (lang = 'ar-AE') {
+             if (lang == 'ar-AE') {
                  current.style.textAlign = "right";
              } else {
                  current.style.textAlign = "left";
@@ -68,7 +68,7 @@
              for (var i = ev.resultIndex; i < results.length; i++) {
                  if (results[i].isFinal) {
                      var p = document.createElement("p");
-                     if (lang = 'ar-AE') {
+                     if (lang == 'ar-AE') {
                          p.style.textAlign = "right";
                      } else {
                          p.style.textAlign = "left";
