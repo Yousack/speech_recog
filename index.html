@@ -15,26 +15,34 @@
         </style>
     </head>
     <body>
-        <button onclick="start('en-US')">English (US)</button>
-        <button onclick="start('en-UK')">English (UK)</button>
-        <button onclick="start('en-CA')">English (CA)</button>
-        <button onclick="start('en-AU')">English (AU)</button>
-        <button onclick="start('fr-FR')">Français</button>
-        <button onclick="start('de-DE')">Deutsch</button>
-        <button onclick="start('es-ES')">Español</button>
-        <button onclick="start('it-IT')">Italiano</button>
-        <button onclick="start('ru-RU')">Pусский</button>
-        <button onclick="start('el-GR')">Ελληνικά</button>
-        <button onclick="start('ar-AE')">اللغة العربية</button>
-        <button onclick="start('ja-JP')">日本語</button>
-        <button onclick="start('cmn-Hans-CN')">普通话 (中国大陆)</button>
-        <button onclick="start('yue-Hant-HK')">粵語 (香港)</button>
-        <div>
-            <p id="state"></p>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <select id="lang">
+                        <option value="en-US">English (US)</option>
+                        <option value="en-UK">English (UK)</option>
+                        <option value="en-CA">English (CA)</option>
+                        <option value="en-AU">English (AU)</option>
+                        <option value="fr-FR">Français</option>
+                        <option value="de-DE">Deutsch</option>
+                        <option value="es-ES">Español</option>
+                        <option value="it-IT">Italiano</option>
+                        <option value="cs-CZ">Čeština</option>
+                        <option value="ru-RU">Pусский</option>
+                        <option value="el-GR">Ελληνικά</option>
+                        <option value="ar-AE">اللغة العربية</option>
+                        <option value="ja-JP">日本語</option>
+                        <option value="cmn-Hans-CN">普通话 (中国大陆)</option>
+                        <option value="yue-Hant-HK">粵語 (香港)</option>
+                    </select>
+                    <button onclick="start()">Start</button>
+                </div>
+            </div>
         </div>
         <div class="container">
             <div class="row">
                 <div class="col">
+                    <p id="state"></p>
                     <p id="current"></p>
                 </div>
             </div>
@@ -47,11 +55,11 @@
         </div>
     </body> 
     <script>
-     function start(lang) {
+     function start() {
          var recognition = new webkitSpeechRecognition();
          recognition.continuous = true;
          recognition.interimResults = true;
-         recognition.lang = lang;
+         recognition.lang = document.getElementById("lang").value;
 
          recognition.onsoundend = function() {
              start(recognition.lang);
@@ -64,7 +72,7 @@
          recognition.onresult = function(ev) {
              var current = document.getElementById("current");
              current.textContent = "";
-             if (lang == 'ar-AE') {
+             if (recognition.lang == 'ar-AE') {
                  current.style.textAlign = "right";
              } else {
                  current.style.textAlign = "left";
@@ -74,13 +82,13 @@
              for (var i = ev.resultIndex; i < results.length; i++) {
                  if (results[i].isFinal) {
                      var p = document.createElement("p");
-                     if (lang == 'ar-AE') {
+                     if (recognition.lang == 'ar-AE') {
                          p.style.textAlign = "right";
                      } else {
                          p.style.textAlign = "left";
                      }
                      p.textContent = results[i][0].transcript;
-                     p.lang = lang;
+                     p.lang = recognition.lang;
                      var result_list = document.getElementById("result_list");
                      result_list.insertBefore(p, result_list.firstChild);
                      start(recognition.lang);
