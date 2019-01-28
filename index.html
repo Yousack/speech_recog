@@ -24,12 +24,20 @@
                         <option value="en-CA">English (CA)</option>
                         <option value="en-AU">English (AU)</option>
                         <option value="fr-FR">Français</option>
+                        <option value="da-DK">Dansk</option>
                         <option value="de-DE">Deutsch</option>
                         <option value="es-ES">Español</option>
                         <option value="it-IT">Italiano</option>
+                        <option value="ru-RU">Pусский</option>
+                        <option value="az-AZ">Azərbaycanca</option>
+                        <option value="ga-IE">Irish</option>
+                        <option value="nl-NL">Nederlands</option>
+                        <option value="nb-NO">Norsk bokmål</option>
+                        <option value="pl-PL">Polski</option>
+                        <option value="ro-RO">Română</option>
+                        <option value="sv-SE">Svenska</option>
                         <option value="cs-CZ">Čeština</option>
                         <option value="fi-FI">Suomi</option>
-                        <option value="ru-RU">Pусский</option>
                         <option value="el-GR">Ελληνικά</option>
                         <option value="ar-AE">اللغة العربية</option>
                         <option value="am-ET">አማርኛ</option>
@@ -80,7 +88,7 @@
          recognition.onresult = function(ev) {
              var current = document.getElementById("current");
              current.textContent = "";
-             if (recognition.lang == 'ar-AE') {
+             if (recognition.lang == 'ar-AE' || recognition.lang == 'he-IL') {
                  current.style.textAlign = "right";
              } else {
                  current.style.textAlign = "left";
@@ -90,7 +98,7 @@
              for (var i = ev.resultIndex; i < results.length; i++) {
                  if (results[i].isFinal) {
                      var p = document.createElement("p");
-                     if (recognition.lang == 'ar-AE') {
+                     if (recognition.lang == 'ar-AE' || recognition.lang == 'he-IL') {
                          p.style.textAlign = "right";
                      } else {
                          p.style.textAlign = "left";
