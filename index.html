@@ -47,10 +47,11 @@
 </body>
 <script>
     function rtl() {
+        var textAlign = document.getElementById("results")
         if (document.getElementById("results").checked) {
-            document.body.style.textAlign = "right";
+            textAlign = "right";
         } else {
-            document.body.style.textAlign = "left";
+            textAlign = "left";
         }
     }
 
