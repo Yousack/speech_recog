@@ -28,24 +28,26 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <p id="state"></p>
-                <p id="current"></p>
+    <div id="results">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p id="state"></p>
+                    <p id="current"></p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col" id="result_list">
+        <div class="container">
+            <div class="row">
+                <div class="col" id="result_list">
+                </div>
             </div>
-        </div>
+        </div>    
     </div>
 </body>
 <script>
     function rtl() {
-        if (document.getElementById("rtl").checked) {
+        if (document.getElementById("results").checked) {
             document.body.style.textAlign = "right";
         } else {
             document.body.style.textAlign = "left";
