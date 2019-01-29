@@ -1,90 +1,94 @@
 <!DOCTYPE html>
 <html lang="ja-JP">
-    <head>
-        <title>speech recognition</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <style>
-         p {
-             hyphens: auto;
-         }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <input id="lang" type="text" />
-                    <button onclick="start()">Start</button>
-                </div>
+<head>
+    <title>speech recognition</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <style>
+        p {
+            font-family: "Noto Sans Arabic, Noto Sans Bengali, Noto Sans Armenian, Noto Sans CJK JP, Noto Sans CJK KR, Noto Sans CJK SC, Noto Sans CJK TC, Noto Sans Devanagari, Noto Sans Georgian, Noto Sans Gujarati, Noto Sans Hebrew, Noto Sans Khmar, Noto Sans Malayaram, Noto Sans Myanmar, Noto Sans Sinhala, Noto Sans Tamil, Noto Sans Thai, Noto Sans"
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <input id="lang" type="text" />
+                <input id="rtl" type="checkbox" onclick="rtl()" />
+                <label>rtl</label>
+                <button onclick="start()">Start</button>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <p id="state"></p>
-                    <p id="current"></p>
-                </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p id="state"></p>
+                <p id="current"></p>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col" id="result_list">
-                </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col" id="result_list">
             </div>
         </div>
-    </body> 
-    <script>
-     function start() {
-         var recognition = new webkitSpeechRecognition();
-         recognition.continuous = true;
-         recognition.interimResults = true;
-         recognition.lang = document.getElementById("lang").value;
+    </div>
+</body>
+<script>
+    function rtl() {
+        if (document.getElementById("rtl").checked) {
+            document.body.style.textAlign = "right";
+        } else {
+            document.body.style.textAlign = "left";
+        }
+    }
 
-         recognition.onsoundend = function() {
-             start(recognition.lang);
-         }
+    function start() {
+        var recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = document.getElementById("lang").value;
 
-         recognition.onerror = function() {
-             start(recognition.lang);
-         }
+        recognition.onsoundend = function () {
+            start(recognition.lang);
+        }
 
-         recognition.onresult = function(ev) {
-             var current = document.getElementById("current");
-             current.textContent = "";
-             if (recognition.lang == 'ar-AE' || recognition.lang == 'he-IL') {
-                 current.style.textAlign = "right";
-             } else {
-                 current.style.textAlign = "left";
-             }
-             var state = document.getElementById("state");
-             var results = ev.results;
-             for (var i = ev.resultIndex; i < results.length; i++) {
-                 if (results[i].isFinal) {
-                     var p = document.createElement("p");
-                     if (recognition.lang == 'ar-AE' || recognition.lang == 'he-IL') {
-                         p.style.textAlign = "right";
-                     } else {
-                         p.style.textAlign = "left";
-                     }
-                     p.textContent = results[i][0].transcript;
-                     p.lang = recognition.lang;
-                     var result_list = document.getElementById("result_list");
-                     result_list.insertBefore(p, result_list.firstChild);
-                     start(recognition.lang);
-                 } else {
-                     current.textContent += results[i][0].transcript;
-                     state.textContent = "interim";
-                 }
-             }
-         }
-             
-         document.getElementById("state").textContent = "start";
-         recognition.start();
-     }
-    </script>
+        recognition.onerror = function () {
+            start(recognition.lang);
+        }
+
+        recognition.onresult = function (ev) {
+            var current = document.getElementById("current");
+            current.textContent = "";
+            var state = document.getElementById("state");
+            var results = ev.results;
+            for (var i = ev.resultIndex; i < results.length; i++) {
+                if (results[i].isFinal) {
+                    var p = document.createElement("p");
+                    p.textContent = results[i][0].transcript;
+                    p.lang = recognition.lang;
+                    var result_list = document.getElementById("result_list");
+                    result_list.insertBefore(p, result_list.firstChild);
+                    start(recognition.lang);
+                } else {
+                    current.textContent += results[i][0].transcript;
+                    state.textContent = "interim";
+                }
+            }
+        }
+
+        document.getElementById("state").textContent = "start";
+        recognition.start();
+    }
+</script>
+
 </html>
