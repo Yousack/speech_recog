@@ -25,6 +25,7 @@
                 <input id="rtl" type="checkbox" onclick="rtl()" />
                 <label for="rtl">rtl</label>
                 <button onclick="start()">Start</button>
+                <button onclick="clear()">Clear</button>
                 <p id="state"></p>
             </div>
         </div>
@@ -52,6 +53,10 @@
         } else {
             document.getElementById("results").style.textAlign = "left";
         }
+    }
+
+    function clear() {
+        document.getElementById("results").innerHTML = "";
     }
 
     function start() {
