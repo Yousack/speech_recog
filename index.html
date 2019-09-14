@@ -63,6 +63,7 @@
     var recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
+    var recognizing = false;
 
     recognition.onresult = function (ev) {
         var current = document.getElementById("current");
@@ -84,8 +85,12 @@
     }
 
     function start() {
+        if (recognizing) {
+            recognition.stop();
+        }
         recognition.lang = document.getElementById("lang").value;
         document.getElementById("state").textContent = "start";
+        recognizing = true;
         recognition.start();
     }
 </script>
