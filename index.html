@@ -71,7 +71,6 @@
         var startButton = document.getElementById("startButton");
         var results = ev.results;
         for (var i = ev.resultIndex; i < results.length; i++) {
-            console.log(first);
             if (results[i].isFinal) {
                 var p = document.createElement("p");
                 p.textContent = results[i][0].transcript;
