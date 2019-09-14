@@ -63,7 +63,6 @@
     recognition.interimResults = true;
     var recognizing = false;
 
-    var first = true;
     recognition.onresult = function (ev) {
         var current = document.getElementById("current");
         current.textContent = "";
@@ -78,15 +77,11 @@
                 var result_list = document.getElementById("result_list");
                 result_list.insertBefore(p, result_list.firstChild);
                 startButton.textContent = "⏹";
-                first = true;
             } else {
                 var span = document.createElement("span");
                 span.textContent = results[i][0].transcript;
-                if (first || i > ev.resultIndex) {
+                if (i > ev.resultIndex) {
                     span.style.backgroundColor = "rgba(33, 37, 41, .2)";
-                    if (i > ev.resultIndex) {
-                        first = false;
-                    }
                 }
                 current.appendChild(span);
                 startButton.textContent = "⏺";
