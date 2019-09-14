@@ -23,11 +23,9 @@
         <div class="row">
             <div class="col">
                 <input id="lang" type="text" />
-                <input id="rtl" type="checkbox" onclick="rtl()" />
                 <label for="rtl">rtl</label>
-                <button onclick="start()">Start</button>
-                <button onclick="clear()">Clear</button>
-                <p id="state"></p>
+                <input id="rtl" type="checkbox" onclick="rtl()" />
+                <button id="startButton" onclick="start()">⏹</button>
             </div>
         </div>
     </div>
@@ -65,32 +63,50 @@
     recognition.interimResults = true;
     var recognizing = false;
 
+    var first = true;
     recognition.onresult = function (ev) {
         var current = document.getElementById("current");
         current.textContent = "";
-        var state = document.getElementById("state");
+        current.lang = recognition.lang;
+        var startButton = document.getElementById("startButton");
         var results = ev.results;
         for (var i = ev.resultIndex; i < results.length; i++) {
+            console.log(first);
             if (results[i].isFinal) {
                 var p = document.createElement("p");
                 p.textContent = results[i][0].transcript;
                 p.lang = recognition.lang;
                 var result_list = document.getElementById("result_list");
                 result_list.insertBefore(p, result_list.firstChild);
+                startButton.textContent = "⏹";
+                first = true;
             } else {
-                current.textContent += results[i][0].transcript;
-                state.textContent = "interim";
+                var span = document.createElement("span");
+                span.textContent = results[i][0].transcript;
+                if (first || i > ev.resultIndex) {
+                    span.style.backgroundColor = "rgba(33, 37, 41, .2)";
+                    if (i > ev.resultIndex) {
+                        first = false;
+                    }
+                }
+                current.appendChild(span);
+                startButton.textContent = "⏺";
             }
         }
     }
 
+    recognition.onstart = function() {
+        recognizing = true;
+        document.getElementById("startButton").textContent = "▶️";
+    }
+
     function start() {
         if (recognizing) {
+            recognizing = false;
             recognition.stop();
+            return;
         }
         recognition.lang = document.getElementById("lang").value;
-        document.getElementById("state").textContent = "start";
-        recognizing = true;
         recognition.start();
     }
 </script>
