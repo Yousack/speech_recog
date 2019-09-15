@@ -63,6 +63,7 @@
     recognition.continuous = true;
     recognition.interimResults = true;
     var recognizing = false;
+    var from_error = false;
 
     recognition.onresult = function (ev) {
         var current = document.getElementById("current");
@@ -92,12 +93,21 @@
 
     recognition.onstart = function() {
         recognizing = true;
+        from_error = false;
         document.getElementById("startButton").textContent = "▶️";
         document.getElementById("errorState").textContent = "";
     }
 
     recognition.onerror = function(ev) {
         document.getElementById("errorState").textContent = ev.error;
+        recognizing = false;
+        from_error = true;
+    }
+    
+    recognition.onend = function() {
+        if (from_error) {
+            start();
+        }
     }
 
     function start() {
