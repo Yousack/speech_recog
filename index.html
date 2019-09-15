@@ -93,6 +93,10 @@
         recognizing = true;
         document.getElementById("startButton").textContent = "▶️";
     }
+    
+    recognition.onerror = function(ev) {
+        console.log(ev);
+    }
 
     function start() {
         if (recognizing) {
