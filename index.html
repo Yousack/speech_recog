@@ -26,6 +26,7 @@
                 <label for="rtl">rtl</label>
                 <input id="rtl" type="checkbox" onclick="rtl()" />
                 <button id="startButton" onclick="start()">⏹</button>
+                <span id="errorState"></span>
             </div>
         </div>
     </div>
@@ -92,10 +93,15 @@
     recognition.onstart = function() {
         recognizing = true;
         document.getElementById("startButton").textContent = "▶️";
+        document.getElementById("errorState").textContent = "";
     }
-    
+
+    recognition.onend = function() {
+        document.getElementById("errorState").textContent = "";
+    }
+
     recognition.onerror = function(ev) {
-        console.log(ev);
+        document.getElementById("errorState").textContent = ev.error;
     }
 
     function start() {
