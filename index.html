@@ -96,10 +96,6 @@
         document.getElementById("errorState").textContent = "";
     }
 
-    recognition.onend = function() {
-        document.getElementById("errorState").textContent = "";
-    }
-
     recognition.onerror = function(ev) {
         document.getElementById("errorState").textContent = ev.error;
     }
