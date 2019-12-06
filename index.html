@@ -105,7 +105,7 @@
 
     recognition.onerror = function(ev) {
         var p = document.createElement("p");
-        p.textContent = document.getElementById("current");
+        p.textContent = document.getElementById("current").textContent;
         p.lang = recognition.lang;
         var result_list = document.getElementById("result_list");
         result_list.insertBefore(p, result_list.firstChild);
