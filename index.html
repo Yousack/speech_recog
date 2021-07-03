@@ -128,7 +128,7 @@
             recognition.stop();
             return;
         }
-        recognition.lang = document.getElementById("lang").value;
+        recognition.lang = document.getElementById("lang").value || 'ja';
         recognition.start();
     }
 </script>
