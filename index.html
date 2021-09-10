@@ -8,16 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <style>
         @import url('https://rsms.me/inter/inter.css');
+
         p {
             font-family: 'Segoe UI', 'Inter', 'Open Sans', san-serif;
             text-align: justify;
         }
-        
+
         #controlForm {
             margin-bottom: 16px;
         }
@@ -29,9 +30,9 @@
         <div class="row">
             <div class="col">
                 <input id="lang" type="text" />
-                <label for="rtl">rtl</label>
-                <input id="rtl" type="checkbox" onclick="rtl()" />
                 <button type="button" id="startButton" onclick="start()">⏹</button>
+                <label for="endless">endless</label>
+                <input id="endless" type="checkbox" />
                 <span id="errorState"></span>
             </div>
         </div>
@@ -49,22 +50,10 @@
                 <div class="col" id="result_list">
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
 </body>
 <script>
-    function rtl() {
-        if (document.getElementById("rtl").checked) {
-            document.getElementById("results").style.textAlign = "right";
-        } else {
-            document.getElementById("results").style.textAlign = "left";
-        }
-    }
-
-    function clear() {
-        document.getElementById("result_list").innerHTML = "";
-    }
-
     var recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
@@ -97,14 +86,14 @@
         }
     }
 
-    recognition.onstart = function() {
+    recognition.onstart = function () {
         recognizing = true;
         from_error = false;
         document.getElementById("startButton").textContent = "▶️";
         document.getElementById("errorState").textContent = "";
     }
 
-    recognition.onerror = function(ev) {
+    recognition.onerror = function (ev) {
         var p = document.createElement("p");
         p.textContent = document.getElementById("current").textContent;
         p.lang = recognition.lang;
@@ -115,9 +104,10 @@
         recognizing = false;
         from_error = true;
     }
-    
-    recognition.onend = function() {
-        if (from_error) {
+
+    recognition.onend = function () {
+        recognizing = false;
+        if (from_error || document.getElementById("endless").checked) {
             start();
         }
     }
