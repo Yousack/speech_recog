@@ -96,9 +96,11 @@
     recognition.onerror = function (ev) {
         var p = document.createElement("p");
         p.textContent = document.getElementById("current").textContent;
-        p.lang = recognition.lang;
-        var result_list = document.getElementById("result_list");
-        result_list.insertBefore(p, result_list.firstChild);
+        if (p.textContent != "") {
+            p.lang = recognition.lang;
+            var result_list = document.getElementById("result_list");
+            result_list.insertBefore(p, result_list.firstChild);
+        }
 
         document.getElementById("errorState").textContent = ev.error;
         recognizing = false;
