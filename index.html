@@ -61,6 +61,7 @@
     var from_error = false;
 
     recognition.onresult = function (ev) {
+        document.getElementById("errorState").textContent = "";
         var current = document.getElementById("current");
         current.textContent = "";
         current.lang = recognition.lang;
@@ -90,7 +91,6 @@
         recognizing = true;
         from_error = false;
         document.getElementById("startButton").textContent = "▶️";
-        document.getElementById("errorState").textContent = "";
     }
 
     recognition.onerror = function (ev) {
